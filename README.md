@@ -1,0 +1,1 @@
+An authentication setup for node js based on the work of Chris Sevilleja found at https://scotch.io/tutorials/easy-node-authentication-setup-and-local
