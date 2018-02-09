@@ -9,9 +9,13 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 
 var configDB = require('./config/database.js');
+const configSess = require('./config/session.json');
 
 // configuration
-mongoose.connect(configDB.url);
+var options = {
+    useMongoClient: true
+};
+mongoose.connect(configDB.url, options);
 require('./config/passport')(passport);  // pass passport for configuration
 
 // set up express app
@@ -25,7 +29,8 @@ app.use(bodyParser());  // get information from html forms
 app.set('view engine', 'ejs');  // set up ejs for templating
 
 // required for passport
-app.use(session({secret: 'itwasthebestoftimes'}));  // session secret
+
+app.use(session({secret: configSess.secret}));  // session secret
 app.use(passport.initialize());
 app.use(passport.session());    // persistent login sessions
 app.use(flash());   // use connect-flash for flash messages stored in session
